@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MoodPlayer.App.Models"
+             x:Class="MoodPlayer.App.MainPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BackgroundDark}">
+    <Grid>
+        <BoxView x:Name="AccentBackground"
+                 Color="{StaticResource AccentDefault}"
+                 Opacity="0.12" />
+        <ScrollView>
+            <VerticalStackLayout Padding="24,52,24,40"
+                                 Spacing="0">
+
+                <!-- header -->
+                <Label Text="Mood Player"
+                       FontSize="34"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,4" />
+
+                <Label x:Name="SubtitleLabel"
+                       Text="How are you feeling today?"
+                       FontSize="15"
+                       TextColor="{StaticResource TextMuted}"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,32" />
+
+                <!-- mood buttons -->
+                <FlexLayout x:Name="MoodButtonsLayout"
+                            Wrap="Wrap"
+                            JustifyContent="Center"
+                            Margin="0,0,0,32" />
+
+                <!-- banner after choice -->
+                <Border x:Name="MoodBanner"
+                        IsVisible="False"
+                        BackgroundColor="{StaticResource Surface}"
+                        Stroke="{StaticResource TextGhost}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="20,16"
+                        Margin="0,0,0,24">
+                    <VerticalStackLayout Spacing="4">
+                        <Label x:Name="MoodEmojiLabel"
+                               FontSize="40"
+                               HorizontalOptions="Center" />
+                        <Label x:Name="MoodNameLabel"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"
+                               HorizontalOptions="Center" />
+                        <Label x:Name="MoodDescLabel"
+                               FontSize="13"
+                               TextColor="{StaticResource TextMuted}"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- playlist -->
+                <Border x:Name="PlaylistContainer"
+                        IsVisible="False"
+                        BackgroundColor="{StaticResource SurfaceVariant}"
+                        Stroke="{StaticResource BorderColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="0">
+                    <VerticalStackLayout>
+
+                        <!-- playlist header-->
+                        <Grid Padding="20,14"
+                              BackgroundColor="{StaticResource Surface}"
+                              ColumnDefinitions="*,Auto">
+                            <Label Text="🎵  Playlist"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TextPrimary}" />
+                            <Label x:Name="TrackCountLabel"
+                                   Grid.Column="1"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextMuted}" />
+                        </Grid>
+
+                        <!-- playlist display -->
+                        <CollectionView x:Name="TrackList">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Track">
+                                    <Grid Padding="20,12"
+                                          ColumnDefinitions="36,*,Auto"
+                                          RowDefinitions="Auto,Auto,Auto">
+
+                                        <Label Grid.RowSpan="2"
+                                               Text="▶"
+                                               FontSize="14"
+                                               TextColor="{StaticResource TextMuted}"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center" />
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Title}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TextMuted}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Artist}" />
+                                                    <Span Text="  ·  "
+                                                          TextColor="{StaticResource TextGhost}" />
+                                                    <Span Text="{Binding Genre}"
+                                                          TextColor="{StaticResource TextDim}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="2"
+                                               Grid.RowSpan="2"
+                                               Text="{Binding Duration}"
+                                               FontSize="12"
+                                               TextColor="{StaticResource TextMuted}"
+                                               VerticalOptions="Center" />
+
+                                        <BoxView Grid.ColumnSpan="3"
+                                                 Grid.Row="2"
+                                                 HeightRequest="1"
+                                                 Color="{StaticResource BorderDark}"
+                                                 Margin="0,8,0,0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <!-- timestamp -->
+                        <Label x:Name="TimestampLabel"
+                               FontSize="10"
+                               TextColor="{StaticResource TextGhost}"
+                               HorizontalOptions="End"
+                               Margin="0,8,20,12" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
